@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # korvaa tämä omalla käyttäjätunnuksellasi
 USERNAME="nuurtamo"

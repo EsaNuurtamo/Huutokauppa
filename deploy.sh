@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # Missä kansiossa komento suoritetaan
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -8,7 +8,7 @@ source $DIR/config/environment.sh
 echo "Siirretään tiedostot users-palvelimelle..."
 
 # Tämä komento siirtää tiedostot palvelimelta
-rsync -z -r $DIR/app $DIR/assets $DIR/config $DIR/lib $DIR/sql $DIR/vendor index.php composer.json $USERNAME@users.cs.helsinki.fi:htdocs/$PROJECT_FOLDER
+rsync -z -r $DIR/app $DIR/assets $DIR/config $DIR/lib $DIR/sql $DIR/vendor $DIR/index.php $DIR/composer.json $USERNAME@users.cs.helsinki.fi:htdocs/$PROJECT_FOLDER
 
 echo "Valmis!"
 
