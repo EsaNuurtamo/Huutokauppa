@@ -33,6 +33,10 @@
   $routes->get('/tietokantayhteys', function(){
     DB::test_connection();
   });
+  
+  $routes->get('/tuotteet', function() {
+    HelloWorldController::tuotteet();
+  });
 
   // Otetaan reitit käyttöön
   require 'config/routes.php';
