@@ -21,4 +21,8 @@
     public static function tuote_esittely(){
         View::make('suunnitelmat/tuote_esittely.html');
     }
+    
+    public static function tuote_muokkaus(){
+        View::make('suunnitelmat/tuote_muokkaus.html');
+    }
   }
