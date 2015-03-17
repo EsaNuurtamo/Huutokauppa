@@ -1,0 +1,47 @@
+
+
+{% extends "base.html" %}
+{% block content %}
+<h1>Uuni</h1>
+<!-- Painikkeet tähän -->
+<p>
+  <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+</p>
+
+<!--Kuva tuottesta-->
+<p>
+    <img src="http://www.veneilijanverkkokauppa.fi/images/wallas_uuni87D.jpg">
+</p>
+
+<!-- Tiedot tulee listana tähän -->
+<ul>
+    <li><strong>Tuotekategoria:</strong> kodinkoneet</li>
+    <li><strong>Kaupan aloituspäivä:</strong> 11.11.2011</li>
+    <li><strong>Kaupan lopetuspäivä:</strong> 15.11.2011</li>
+    <li><strong>Lisäyspäivä:</strong> 9.12.2010</li>
+</ul>
+
+<!-- Kuvaus tulee tähän -->
+<div style="border: 1px solid grey">
+    <p>Hyväkuntoinen käytetty uuni.</p>
+</div>
+
+
+<!--Tarjouksenteko kaavake-->
+<p>
+    <h4>Voittava tarjous: <small>50€</small></h4>
+</p>
+<form class="form-inline">
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon">€</div>
+            <input type="text" class="form-control" id="exampleInputAmount">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Tee tarjous</button>
+</form>
+{% endblock %}
+
+
+
+

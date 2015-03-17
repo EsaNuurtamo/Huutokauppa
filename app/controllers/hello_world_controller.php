@@ -11,7 +11,14 @@
         View::make('helloworld.html');
     }
     
+    public static function kirjautuminen(){
+        View::make('suunnitelmat/kirjautuminen.html');
+    }
+    
     public static function tuotteet(){
-        View::make('tuotteet.html');
+        View::make('suunnitelmat/tuotteet.html');
+    }
+    public static function tuote_esittely(){
+        View::make('suunnitelmat/tuote_esittely.html');
     }
   }

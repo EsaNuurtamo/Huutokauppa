@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Kirjaudu sisään</h1>
+
+  <!-- Kaikki lomakkeen elementit form-tagin sisään -->
+  <form>
+    <!-- Tekstikenttä käyttäjätunnukselle -->
+    <div class="form-group">
+      <label>Käyttäjätunnus</label>
+      <input class="form-control" type="text">
+    </div>
+
+    <!-- Salasanakenttä salasanalle -->
+    <div class="form-group">
+      <label>Salasana</label>
+      <input class="form-control" type="password">
+    </div>
+    <div class="">
+        
+    </div>
+    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+    
+  </form>
+  <div>
+      <p>
+          Etkö ole vielä rekisteröitynyt?
+      </p>
+      <a class="btn btn-default" href="/rekisterointi" role="button">Rekisteröidy!</a>
+  </div>
+  
+{% endblock %}
