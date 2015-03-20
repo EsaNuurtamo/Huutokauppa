@@ -39,7 +39,7 @@
   });
   
   $routes->get('/tuotteet', function() {
-    HelloWorldController::tuotteet();
+      TuoteController::tuotteet();
   });
   
   

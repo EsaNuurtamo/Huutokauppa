@@ -12,18 +12,24 @@
         <th>Nimi</th>
         <th>Kaupan alkamispäivä</th>
         <th>Kaupan sulkemispäivä</th>
-        <th></th>
+        <th>Minimihinta</th>
+        <th>Korkein tarjous</th>
+        
       </tr>
     </thead>
 
     <tbody>
       <!-- Listataan pelit tähän -->
+      {% for tuote in tuotteet %}
       <tr>
-        <td><a href="#">Uuni</a></td>
-        <td>11.11.2011</td>
-        <td>9.12.2014</td>
-        <th><a class="btn btn-default btn-sm" href="{{base_path}}/tuotteet/1">Muokkaa</a></th>
+        <td><a href="{{base_path}}/tuotteet/{{tuote.id}}">Uuni</a></td>
+        <td>{{tuote.kaupanAlku}}</td>
+        <td>{{tuote.kaupanLoppu}}</td>
+        <td>{{tuote.minimihinta}}</td>
+        <td>50.5 €</td>
+        <th><a class="btn btn-default btn-sm" href="{{base_path}}/tuotteet/{{tuote.id}}">Muokkaa</a></th>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 {% endblock %}
