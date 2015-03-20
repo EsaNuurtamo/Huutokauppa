@@ -34,24 +34,8 @@
     DB::test_connection();
   });
   
-  $routes->get('/kirjautuminen', function() {
-    HelloWorldController::kirjautuminen();
-  });
-  
-  $routes->get('/tuotteet', function() {
-      TuoteController::tuotteet();
-  });
   
   
-  
-  $routes->get('/tuotteet/1', function() {
-    HelloWorldController::tuote_esittely();
-  });
-  
-  $routes->get('/tuotteet/1/muokkaa', function() {
-    HelloWorldController::tuote_muokkaus();
-  });
-
   // Otetaan reitit käyttöön
   require 'config/routes.php';
 

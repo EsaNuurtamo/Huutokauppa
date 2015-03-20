@@ -3,7 +3,7 @@
   <h1>Tuotelista</h1>
 
   <p>
-    <a href="#" class="btn btn-success">Lisää tuote</a>
+    <a href="{{base_path}}/tuotteet/uusi" class="btn btn-success">Lisää tuote</a>
   </p>
 
   <table class="table table-striped table-bordered">
@@ -22,12 +22,12 @@
       <!-- Listataan pelit tähän -->
       {% for tuote in tuotteet %}
       <tr>
-        <td><a href="{{base_path}}/tuotteet/{{tuote.id}}">Uuni</a></td>
+        <td><a href="{{base_path}}/tuotteet/{{tuote.id}}">{{tuote.nimi}}</a></td>
         <td>{{tuote.kaupanAlku}}</td>
         <td>{{tuote.kaupanLoppu}}</td>
         <td>{{tuote.minimihinta}}</td>
-        <td>50.5 €</td>
-        <th><a class="btn btn-default btn-sm" href="{{base_path}}/tuotteet/{{tuote.id}}">Muokkaa</a></th>
+        <td>0.0 €</td>
+        <th><a class="btn btn-default btn-sm" href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa">Muokkaa</a></th>
       </tr>
       {% endfor %}
     </tbody>

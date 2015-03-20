@@ -1,31 +1,35 @@
-
-
 {% extends "base.html" %}
 {% block content %}
-<h1>Uuni</h1>
-<!-- Painikkeet tähän -->
+<h1>{{tuote.nimi}}</h1>
+
+
+<!-- Poisto ja muokkaus painikkeet -->
 <p>
-  <button class="btn btn-danger">Poista</button> <a href="{{base_path}}/tuotteet/1/muokkaa" class="btn btn-default">Muokkaa</a>
+    <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista">
+        <button type="submit" class="btn btn-danger">Poista</button>  
+    </form>
+    <a href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
 </p>
 
 <!--Kuva tuottesta-->
-<p>
-    <img src="http://www.veneilijanverkkokauppa.fi/images/wallas_uuni87D.jpg">
-</p>
+<div>
+    Tähän tulisi kuva
+    <!--<img src="http://www.veneilijanverkkokauppa.fi/images/wallas_uuni87D.jpg">-->
+</div>
 
 <!-- Tiedot tulee listana tähän -->
 <ul>
     <li><strong>Tuotekategoriat:</strong> kodinkoneet, käytetyt</li>
-    <li><strong>Kaupan aloituspäivä:</strong> 11.11.2011</li>
-    <li><strong>Kaupan lopetuspäivä:</strong> 15.11.2011</li>
-    <li><strong>Lisäyspäivä:</strong> 9.12.2010</li>
-    <li><strong>Minimihinta:</strong> 40.5 €</li>
-    <li><strong>Meklari:</strong> Kalle Kolehmainen</li>
+    <li><strong>Kaupan aloituspäivä:</strong>{{tuote.kaupanAlku}}</li>
+    <li><strong>Kaupan lopetuspäivä:</strong><{{tuote.kaupanLoppu}}</li>
+    <li><strong>Lisäyspäivä:</strong>{{tuote.lisaysaika}}</li>
+    <li><strong>Minimihinta:</strong>{{tuote.minimihinta}} €</li>
+    <li><strong>Meklari:</strong> {{tuote.meklari}}</li>
 </ul>
 
 <!-- Kuvaus tulee tähän -->
 <div style="border: 1px solid grey">
-    <p>Hyväkuntoinen käytetty uuni.</p>
+    <p>{{tuote.kuvaus}}</p>
 </div>
 
 
@@ -42,6 +46,7 @@
     </div>
     <button type="submit" class="btn btn-primary">Tee tarjous</button>
 </form>
+
 {% endblock %}
 
 

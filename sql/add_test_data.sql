@@ -21,3 +21,5 @@ INSERT INTO Tuotekategoria (kategoria, tuote) VALUES(1,1);
 INSERT INTO Tuotekategoria (kategoria, tuote) VALUES(1,3);
 INSERT INTO Tuotekategoria (kategoria, tuote) VALUES(2,2);
 INSERT INTO Tuotekategoria (kategoria, tuote) VALUES(2,3);
+
+
