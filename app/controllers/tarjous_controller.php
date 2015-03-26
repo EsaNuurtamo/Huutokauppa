@@ -1,9 +1,7 @@
 <?php
 
 class TarjousController extends BaseController{
-    public static function tuotteenTarjoukset($id){
-        $tarjoukset = Tarjous::getByTuote($id);
-    }
+    
     
     public static function teeTarjous($id){
         $params = $_POST;
@@ -15,8 +13,11 @@ class TarjousController extends BaseController{
             'tuote' => $id,
             'asiakas' => 'Olli'
         ));
-        
+        Kint::dump($params);
         $tarjous ->tallenna();
+        
+        
+        Redirect::to('/tuotteet/' . $id, array('viesti' => 'Uusi tarjous tehty!'));
     }
 }
 

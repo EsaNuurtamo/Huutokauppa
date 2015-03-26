@@ -20,6 +20,10 @@ $routes->get('/tuotteet', function() {
     TuoteController::tuotteet();
 });
 
+$routes->get('/tuotteet/kategoria/:id', function($id) {
+    TuoteController::kategorianTuotteet($id);
+});
+
 
 
 $routes->get('/tuotteet/uusi', function(){
@@ -38,10 +42,23 @@ $routes->get('/tuotteet/:id/muokkaa', function($id) {
     TuoteController::tuote_muokkaus($id);
 });
 
-$routes->get('/tuotteet/:id/tarjoukset', function($id) {
-    TarjousController::tuotteenTarjoukset();
-});
-
 $routes->post('/tuotteet/:id/tarjoa', function($id) {
     TarjousController::teeTarjous($id);
 });
+
+$routes->post('/kategoriat', function(){
+    KategoriaController::luo_uusi();
+});
+
+$routes->get('/kategoriat', function() {
+    KategoriaController::kategoriat();
+});
+$routes->get('/kategoriat/uusi', function(){
+    KategoriaController::kategoria_uusi();
+});
+$routes->post('/kategoriat/:id/poista', function($id) {
+    KategoriaController::poista($id);
+});
+
+
+

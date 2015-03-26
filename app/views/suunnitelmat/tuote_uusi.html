@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+
+
   <h1>Luo uusi tuote</h1>
 
   <!-- Formi johon laitetaan tuotteen tiedot-->
@@ -8,9 +10,10 @@
       <label>Nimi</label>
       <input name="nimi" class="form-control" type="text">
     </div>
-    <div class="form-group">
-      <label>Kaupan aloitusaika</label>
-      <input name="kaupanAlku" class="form-control" type="text">
+    <div class='input-group date'>
+        <label>Kaupan aloitusaika</label>
+        <input name="kaupanAlku" type='text' class="form-control" />
+        
     </div>
     <div class="form-group">
       <label>Kaupan lopetusaika</label>
@@ -20,7 +23,16 @@
       <label>Kuvaus</label>
       <textarea name="kuvaus" class="form-control"></textarea>
     </div>
-      <div class="form-group">
+    <!--Tässä voi valita tuotteen kategoriat-->
+    <div class="form-group">
+      <select class="form-control" name="kategoriat[]" multiple="">
+        {% for kategoria in kategoriat %}
+        <option value="{{kategoria.id}}">{{kategoria.nimi}}</option>
+        {% endfor %}
+      </select>
+    </div> 
+      
+    <div class="form-group">
       <label>Minimihinta</label>
       <input name="minimihinta" class="form-control">
     </div>

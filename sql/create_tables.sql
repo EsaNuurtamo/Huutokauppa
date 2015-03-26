@@ -12,7 +12,8 @@ CREATE TABLE Meklari(
   salasana varchar(50) NOT NULL,
   nimi varchar(50) NOT NULL,
   sposti varchar(80) NOT NULL,
-  puhelin varchar(20) NOT NULL    
+  puhelin varchar(20) NOT NULL,
+  admin boolean NOT NULL   
 );
 
 CREATE TABLE Tuote(

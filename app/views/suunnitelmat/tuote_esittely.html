@@ -18,10 +18,18 @@
 </div>
 
 <!-- Tiedot tulee listana tähän -->
+<h4>Kategoriat</h4>
 <ul>
-    <li><strong>Tuotekategoriat:</strong> kodinkoneet, käytetyt</li>
+    {% for kategoria in kategoriat %}
+        <li><a href="{{base_path}}/tuotteet/kategoria/{{kategoria.id}}">{{kategoria.nimi}}</a></li>
+    {% endfor %}
+    
+</ul>
+<h4>Tuotteen tiedot</h4>
+<ul>
+    
     <li><strong>Kaupan aloituspäivä:</strong>{{tuote.kaupanAlku}}</li>
-    <li><strong>Kaupan lopetuspäivä:</strong><{{tuote.kaupanLoppu}}</li>
+    <li><strong>Kaupan lopetuspäivä:</strong>{{tuote.kaupanLoppu}}</li>
     <li><strong>Lisäyspäivä:</strong>{{tuote.lisaysaika}}</li>
     <li><strong>Minimihinta:</strong>{{tuote.minimihinta}} €</li>
     <li><strong>Meklari:</strong> {{tuote.meklari}}</li>
@@ -33,15 +41,25 @@
 </div>
 
 
-<!--Tarjouksenteko kaavake-->
+<!--Aikaisemmat tarjoukset-->
 <p>
-    <h4>Voittava tarjous: <small>50€</small></h4>
+    <h4>Voittava tarjous: <small>{{tarjoukset[0].maara}} €</small></h4>
+    <div class="form-group">
+      <label>Tarjoukset</label>
+      <select class="form-control" name="tarjoukset">
+        {% for tarjous in tarjoukset %}
+          <option value="{{tarjous.id}}">{{tarjous.maara}} €, {{tarjous.aika}}</option>
+        {% endfor %}
+      </select>
+    </div>
 </p>
-<form class="form-inline">
+
+<!--Tarjouksen teko-->
+<form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/tarjoa" class="form-inline">
     <div class="form-group">
         <div class="input-group">
             <div class="input-group-addon">€</div>
-            <input type="text" class="form-control" id="exampleInputAmount">
+            <input name="maara" type="text" class="form-control" id="exampleInputAmount">
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Tee tarjous</button>

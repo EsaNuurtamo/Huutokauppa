@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Kategoriat</h1>
+
+  <p>
+    <a href="{{base_path}}/kategoriat/uusi" class="btn btn-success">Lisää kategoria</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Kuvaus</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Listataan tuotteet tähän -->
+      {% for kategoria in kategoriat %}
+      <tr>
+        <td><a href="{{base_path}}/tuotteet/kategoria/{{kategoria.id}}">{{kategoria.nimi}}</a></td>
+        <td>{{kategoria.kuvaus}}</td>
+        <td>
+          <form method="post" action="{{base_path}}/kategoriat/{{kategoria.id}}/poista">
+            <button type="submit" class="btn btn-danger">Poista</button>  
+          </form>
+        </td>
+        <th><a class="btn btn-default btn-sm" href="{{base_path}}/kategoriat/{{kategoria.id}}/muokkaa">Muokkaa</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

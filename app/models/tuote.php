@@ -17,17 +17,7 @@ class Tuote extends BaseModel{
         $tuotteet = array();
 
         foreach($rows as $row){
-            $tuotteet[] = new Tuote(array(
-              'id' => $row['id'],
-              'nimi' => $row['nimi'],
-              'kuvaus' => $row['kuvaus'],
-              'lisaysaika' => $row['lisaysaika'],
-              'kaupanAlku' => $row['kaupanalku'],
-              'kaupanLoppu' => $row['kaupanloppu'],
-              'minimihinta' => $row['minimihinta'],
-              'meklari' => $row['meklari']
-
-            ));
+            $tuotteet[] = Tuote::luoRivista($row);
         }
 
         return $tuotteet;
@@ -42,21 +32,13 @@ class Tuote extends BaseModel{
         
         $tuotteet = array();
         foreach($rows as $row){
-          $tuotteet[] = new Tuote(array(
-            'id' => $row['id'],
-            'nimi' => $row['nimi'],
-            'kuvaus' => $row['kuvaus'],
-            'lisaysaika' => $row['lisaysaika'],
-            'kaupanAlku' => $row['kaupanalku'],
-            'kaupanLoppu' => $row['kaupanloppu'],
-            'minimihinta' => $row['minimihinta'],
-            'meklari' => $row['meklari']
-            
-          ));
+          $tuotteet[] = Tuote::luoRivista($row);
         }
 
         return $tuotteet;
     }
+    
+    
     
     //hakee tietyn ID:n omaavan tuotteen
     public static function getById($id){
@@ -64,22 +46,20 @@ class Tuote extends BaseModel{
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
-        if($row){
-          $tuote = new Tuote(array(
-            'id' => $row['id'],
-            'nimi' => $row['nimi'],
-            'kuvaus' => $row['kuvaus'],
-            'lisaysaika' => $row['lisaysaika'],
-            'kaupanAlku' => $row['kaupanalku'],
-            'kaupanLoppu' => $row['kaupanloppu'],
-            'minimihinta' => $row['minimihinta'],
-            'meklari' => $row['meklari']
-          ));
+        return Tuote::luoRivista($row);
+    }
+    //TESTAAMATTA
+    public static function getByKategoria($id){
+        $query = DB::connection()->prepare('SELECT * FROM tuote WHERE tuote.id IN (SELECT tuotekategoria.tuote FROM tuotekategoria WHERE tuotekategoria.kategoria = :id )');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $tuotteet = array();
 
-          return $tuote;
+        foreach($rows as $row){
+            $tuotteet[] = Tuote::luoRivista($row);
         }
 
-        return null;
+        return $tuotteet;
     }
     
     //tallentaa olion tietokantaan
@@ -89,8 +69,7 @@ class Tuote extends BaseModel{
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'kaupanalku' => $this->kaupanAlku, 'kaupanloppu' => $this->kaupanLoppu, 'minimihinta' => $this->minimihinta, 'meklari' => $this->meklari));
         $row = $query->fetch();
         
-        Kint::trace();
-        Kint::dump($row);
+        
         
         $this->id = $row['id'];
         
@@ -99,8 +78,28 @@ class Tuote extends BaseModel{
     public static function poista($id){
         $query = DB::connection()->prepare('DELETE FROM Tuote WHERE id = :id');
         $query->execute(array('id' => $id));
-        //Kint::trace();
+        
         
     }
+    
+    public static function luoRivista($row){
+        if($row){
+          $tuote = new Tuote(array(
+            'id' => $row['id'],
+            'nimi' => $row['nimi'],
+            'kuvaus' => $row['kuvaus'],
+            'lisaysaika' => date("Y-m-d H:i:s",  strtotime($row['lisaysaika'])),
+            'kaupanAlku' => $row['kaupanalku'],
+            'kaupanLoppu' => $row['kaupanloppu'],
+            'minimihinta' => $row['minimihinta'],
+            'meklari' => $row['meklari']
+          ));
+
+          return $tuote;
+        }
+        return null;
+        
+    }
+            
 }
 

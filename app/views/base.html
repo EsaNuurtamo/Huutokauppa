@@ -14,7 +14,7 @@
     {% block head %}
       <!-- Bootstrap (tyylitiedosto) -->
       <link href="{{base_path}}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
       <!-- Oma tyylitiedostomme -->
       <link href="{{base_path}}/assets/css/site.css" rel="stylesheet">
     {% endblock %}
@@ -40,6 +40,7 @@
           <ul class="nav navbar-nav">
             <!-- Navigaation linkit -->
             <li><a href="{{base_path}}/tuotteet">Tuotteet</a></li>
+            <li><a href="{{base_path}}/kategoriat">Kategoriat</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="{{base_path}}/kirjautuminen">Kirjaudu sisään</a></li>
@@ -54,9 +55,10 @@
     </div>
 
     {% block body %}
+       
       <!-- jQuery -->
       <script src="{{base_path}}/vendor/jquery.min.js"></script>
-
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
       <!-- Bootstrap (skriptitiedosto) -->
       <script src="{{base_path}}/vendor/bootstrap/js/bootstrap.min.js"></script>
 
