@@ -19,8 +19,17 @@ class TuoteController extends BaseController{
     //luo uuden tuotteen ja ohjaa käyttäjän sen sivuille
     public static function luo_uusi(){
         $params = $_POST;
-        $time=time();
+        //$v = new Valitron\Validator($_POST);
+        //$v->rule('required', array('nimi','lisaysaika','kaupanAlku','kaupanLoppu'));
+        /*if($v->validate()) {
+            echo "Yay! We're all good!";
+        } else {
+            // Errors
+            print_r($v->errors());
+        }*/
         
+        
+        $time=time();
         $tuote = new Tuote(array(
             'nimi' => $params['nimi'],
             'kuvaus' => $params['kuvaus'],
@@ -32,6 +41,7 @@ class TuoteController extends BaseController{
           ));
         
         //Kint::dump($params);
+        
         $tuote->tallenna();
 
         Redirect::to('/tuotteet/' . $tuote->id, array('viesti' => 'Uusi tuote on lisätty!'));

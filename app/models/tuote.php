@@ -89,8 +89,8 @@ class Tuote extends BaseModel{
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'kaupanalku' => $this->kaupanAlku, 'kaupanloppu' => $this->kaupanLoppu, 'minimihinta' => $this->minimihinta, 'meklari' => $this->meklari));
         $row = $query->fetch();
         
-        //Kint::trace();
-        //Kint::dump($row);
+        Kint::trace();
+        Kint::dump($row);
         
         $this->id = $row['id'];
         

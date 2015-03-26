@@ -37,3 +37,11 @@ $routes->post('/tuotteet/:id/poista', function($id) {
 $routes->get('/tuotteet/:id/muokkaa', function($id) {
     TuoteController::tuote_muokkaus($id);
 });
+
+$routes->get('/tuotteet/:id/tarjoukset', function($id) {
+    TarjousController::tuotteenTarjoukset();
+});
+
+$routes->post('/tuotteet/:id/tarjoa', function($id) {
+    TarjousController::teeTarjous($id);
+});
