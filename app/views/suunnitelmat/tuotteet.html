@@ -22,10 +22,10 @@
       <!-- Listataan tuotteet tähän -->
       {% for tuote in tuotteet %}
       <tr>
-        <td><a href="{{base_path}}/tuotteet/{{tuote.id}}">{{tuote.nimi}}</a></td>
-        <td>{{tuote.kaupanAlku}}</td>
-        <td>{{tuote.kaupanLoppu}}</td>
-        <td>{{tuote.minimihinta}}</td>
+        <td><a href="{{base_path}}/tuotteet/{{tuote.id}}"> {{tuote.nimi}}</a></td>
+        <td> {{tuote.kaupanAlku}}</td>
+        <td> {{tuote.kaupanLoppu}}</td>
+        <td> {{tuote.minimihinta}}</td>
         <td>0.0 €</td>
         <th><a class="btn btn-default btn-sm" href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa">Muokkaa</a></th>
       </tr>

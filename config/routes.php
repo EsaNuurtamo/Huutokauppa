@@ -34,17 +34,27 @@ $routes->get('/tuotteet/:id', function($id){
     TuoteController::tuote_esittely($id);
 });
 
+
+
 $routes->post('/tuotteet/:id/poista', function($id) {
     TuoteController::poista($id);
 });
+
+
 
 $routes->get('/tuotteet/:id/muokkaa', function($id) {
     TuoteController::tuote_muokkaus($id);
 });
 
+$routes->post('/tuotteet/:id/muokkaa', function($id) {
+    TuoteController::tee_muokkaus($id);
+});
+
 $routes->post('/tuotteet/:id/tarjoa', function($id) {
     TarjousController::teeTarjous($id);
 });
+
+
 
 $routes->post('/kategoriat', function(){
     KategoriaController::luo_uusi();

@@ -13,7 +13,7 @@ CREATE TABLE Meklari(
   nimi varchar(50) NOT NULL,
   sposti varchar(80) NOT NULL,
   puhelin varchar(20) NOT NULL,
-  admin boolean NOT NULL   
+  admin boolean NOT NULL
 );
 
 CREATE TABLE Tuote(
@@ -24,15 +24,15 @@ CREATE TABLE Tuote(
   kaupanAlku timestamp NOT NULL,
   kaupanLoppu timestamp NOT NULL,
   minimihinta decimal,
-  meklari varchar(50) REFERENCES Meklari(tunnus)
+  meklari varchar(50) REFERENCES Meklari(tunnus) ON DELETE RESTRICT
 );
 
 CREATE TABLE Tarjous(
   id SERIAL PRIMARY KEY,
   maara decimal NOT NULL,
   aika timestamp NOT NULL,
-  tuote integer NOT NULL REFERENCES Tuote(id),
-  asiakas varchar(50) NOT NULL REFERENCES Asiakas(tunnus)
+  tuote integer NOT NULL REFERENCES Tuote(id) ON DELETE CASCADE,
+  asiakas varchar(50) NOT NULL REFERENCES Asiakas(tunnus) ON DELETE RESTRICT
 );
 
 CREATE TABLE Kategoria(
@@ -43,8 +43,8 @@ CREATE TABLE Kategoria(
 
 CREATE TABLE Tuotekategoria(
   id SERIAL PRIMARY KEY,
-  kategoria integer REFERENCES Kategoria(id),
-  tuote integer REFERENCES Tuote(id) 
+  kategoria integer REFERENCES Kategoria(id) ON DELETE CASCADE,
+  tuote integer REFERENCES Tuote(id) ON DELETE CASCADE 
 );
 
 

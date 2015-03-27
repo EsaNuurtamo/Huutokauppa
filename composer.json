@@ -5,8 +5,7 @@
 			"lib",
 			"app/controllers",
                         "app/models"
-                        
-		]
+                ]
 	},
 	"require": {
 		"slim/slim": "2.*",

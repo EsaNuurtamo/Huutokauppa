@@ -5,10 +5,11 @@
 
 <!-- Poisto ja muokkaus painikkeet -->
 <p>
-    <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista">
-        <button type="submit" class="btn btn-danger">Poista</button>  
+    <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista" class="form-inline">
+        <button type="submit" class="btn btn-danger">Poista</button> 
+        <a href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
     </form>
-    <a href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
+    
 </p>
 
 <!--Kuva tuottesta-->
@@ -28,11 +29,11 @@
 <h4>Tuotteen tiedot</h4>
 <ul>
     
-    <li><strong>Kaupan aloituspäivä:</strong>{{tuote.kaupanAlku}}</li>
-    <li><strong>Kaupan lopetuspäivä:</strong>{{tuote.kaupanLoppu}}</li>
-    <li><strong>Lisäyspäivä:</strong>{{tuote.lisaysaika}}</li>
-    <li><strong>Minimihinta:</strong>{{tuote.minimihinta}} €</li>
-    <li><strong>Meklari:</strong> {{tuote.meklari}}</li>
+    <li><strong>Kaupan aloituspäivä: </strong>{{tuote.kaupanAlku}}</li>
+    <li><strong>Kaupan lopetuspäivä: </strong>{{tuote.kaupanLoppu}}</li>
+    <li><strong>Lisäyspäivä: </strong>{{tuote.lisaysaika}}</li>
+    <li><strong>Minimihinta: </strong>{{tuote.minimihinta}} €</li>
+    <li><strong>Meklari: </strong> {{tuote.meklari}}</li>
 </ul>
 
 <!-- Kuvaus tulee tähän -->

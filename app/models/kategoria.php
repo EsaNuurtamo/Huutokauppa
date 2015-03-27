@@ -10,7 +10,7 @@ class Kategoria extends BaseModel{
     //hakee kaikki tuotteet tietokannasta
     public static function all(){
     
-        $query = DB::connection()->prepare('SELECT * FROM Kategoria');
+        $query = DB::connection()->prepare('SELECT * FROM Kategoria ORDER BY nimi');
         $query->execute();
         $rows = $query->fetchAll();
         $kategoriat = array();

@@ -2,30 +2,37 @@
 {% block content %}
 <h1>Muokkaa tuotteen <strong>{{tuote.nimi}}</strong> sivua</h1>
 
-  <form>
+  <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa">
     <div class="form-group">
       <label>Nimi</label>
-      <input class="form-control" type="text" value={{tuote.nimi}}>
+      <input name="nimi" class="form-control" type="text" value={{tuote.nimi}}>
     </div>
     <div class="form-group">
       <label>Kaupan aloitusaika</label>
-      <input class="form-control" type="text" value={{tuote.kaupanAlku}}>
+      <input name="kaupanAlku" class="form-control" type="text" value={{tuote.kaupanAlku}}>
     </div>
     <div class="form-group">
       <label>Kaupan lopetusaika</label>
-      <input class="form-control" type="text" value={{tuote.kaupanLoppu}}>
+      <input name="kaupanLoppu" class="form-control" type="text" value={{tuote.kaupanLoppu}}>
     </div>
     <div class="form-group">
       <label>Kuvaus</label>
-      <textarea class="form-control">{{tuote.kuvaus}}</textarea>
+      <textarea name="kuvaus" class="form-control">{{tuote.kuvaus}}</textarea>
     </div>
+    <div class="form-group">
+      <select class="form-control" name="kategoriat[]" multiple="">
+        {% for kategoria in kategoriat %}
+        <option value="{{kategoria.id}}">{{kategoria.nimi}}</option>
+        {% endfor %}
+      </select>
+    </div> 
     <div class="form-group">
       <label>Minimihinta</label>
       <input name="minimihinta" class="form-control" value={{tuote.minimihinta}}>
     </div>
     <div class="form-group">
       <label>Meklari</label>
-      <input class="form-control" value={{tuote.meklari}}>
+      <input name="meklari" class="form-control" value={{tuote.meklari}}>
     </div>  
     <div class="form-group">
       <label>Lisää kuva</label>

@@ -23,7 +23,8 @@ class KategoriaController extends BaseController{
     }
     
     public static function poista($id){
-        
+        //poistetaan aluksi liitostaulun entryt
+        //TuoteKategoria::poistaKategoriaIdlla($id);
         Kategoria::poista($id);
         Redirect::to('/kategoriat', array('viesti' => 'Kategoria poistettu onnistuneesti!'));
     }

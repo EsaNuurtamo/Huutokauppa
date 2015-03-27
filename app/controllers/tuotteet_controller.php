@@ -16,7 +16,37 @@ class TuoteController extends BaseController{
     }
     public static function tuote_muokkaus($id){
         $tuote = Tuote::getById($id);
-        View::make('suunnitelmat/tuote_muokkaus.html',array('tuote' => $tuote));
+        $kategoriat = Kategoria::all();
+        View::make('suunnitelmat/tuote_muokkaus.html',array('tuote' => $tuote, 'kategoriat' => $kategoriat));
+    }
+    
+    public static function tee_muokkaus($id){
+        $params = $_POST;
+        $time=time();
+        $tuote = new Tuote(array(
+            'nimi' => $params['nimi'],
+            'kuvaus' => $params['kuvaus'],
+            'lisaysaika' => $time,
+            'kaupanAlku' => $params['kaupanAlku'],
+            'kaupanLoppu' => $params['kaupanLoppu'],
+            'minimihinta' => $params['minimihinta'],
+            'meklari' => $params['meklari']
+        ));
+        $tuote->muokkaa($id);
+        
+        //tehdään liitostauluun rivit
+        /*if(array_key_exists('kategoriat', $params)){
+            $kategoriat = $params['kategoriat'];
+            foreach ($kategoriat as $kategoria){
+                $tuoteKategoria=new TuoteKategoria(array(
+                    'kategoria' => $kategoria,
+                    'tuote' => ($tuote->id)
+                ));
+                $tuoteKategoria->tallenna();
+            }
+        }*/
+        
+        Redirect::to('/tuotteet/' . $id, array('viesti' => 'Muokkaus onnistui!'));
     }
     
     //luo uuden tuotteen ja ohjaa käyttäjän sen sivuille
@@ -32,7 +62,6 @@ class TuoteController extends BaseController{
             return;
         }*/
         
-        
         $time=time();
         $tuote = new Tuote(array(
             'nimi' => $params['nimi'],
@@ -46,18 +75,19 @@ class TuoteController extends BaseController{
         $tuote->tallenna();
         
         //tehdään liitostauluun rivit
-        $kategoriat = $params['kategoriat'];
-        
-        foreach ($kategoriat as $kategoria){
-            $tuoteKategoria=new TuoteKategoria(array(
-                'kategoria' => $kategoria,
-                'tuote' => ($tuote->id)
-            ));
-            $tuoteKategoria->tallenna();
+        if(array_key_exists('kategoriat', $params)){
+            
+            $kategoriat = $params['kategoriat'];
+            foreach ($kategoriat as $kategoria){
+                $tuoteKategoria=new TuoteKategoria(array(
+                    'kategoria' => $kategoria,
+                    'tuote' => ($tuote->id)
+                ));
+                $tuoteKategoria->tallenna();
+            }
         }
         
-
-        //Redirect::to('/tuotteet/' . $tuote->id, array('viesti' => 'Uusi tuote on lisätty!'));
+        Redirect::to('/tuotteet/' . $tuote->id, array('viesti' => 'Uusi tuote on lisätty!'));
     }
     
     public static function tuote_uusi(){
@@ -66,7 +96,8 @@ class TuoteController extends BaseController{
     }
     
     public static function poista($id){
-        
+        //poistetaan aluksi liitostaulun entryt
+        //TuoteKategoria::poistaTuoteIdlla($id);
         Tuote::poista($id);
         Redirect::to('/tuotteet', array('viesti' => 'Tuote on poistettu onnistuneesti!'));
     }

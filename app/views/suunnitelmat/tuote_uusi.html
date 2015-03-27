@@ -10,7 +10,7 @@
       <label>Nimi</label>
       <input name="nimi" class="form-control" type="text">
     </div>
-    <div class='input-group date'>
+    <div class="form-group">
         <label>Kaupan aloitusaika</label>
         <input name="kaupanAlku" type='text' class="form-control" />
         
@@ -25,6 +25,7 @@
     </div>
     <!--Tässä voi valita tuotteen kategoriat-->
     <div class="form-group">
+      <label>Kategoriat</label>
       <select class="form-control" name="kategoriat[]" multiple="">
         {% for kategoria in kategoriat %}
         <option value="{{kategoria.id}}">{{kategoria.nimi}}</option>

@@ -11,7 +11,7 @@ class Tuote extends BaseModel{
     //hakee kaikki tuotteet tietokannasta
     public static function all(){
     
-        $query = DB::connection()->prepare('SELECT * FROM Tuote');
+        $query = DB::connection()->prepare('SELECT * FROM Tuote ORDER BY nimi');
         $query->execute();
         $rows = $query->fetchAll();
         $tuotteet = array();
@@ -73,6 +73,12 @@ class Tuote extends BaseModel{
         
         $this->id = $row['id'];
         
+    }
+    
+    public function muokkaa($id){
+        
+        $query = DB::connection()->prepare('UPDATE Tuote SET nimi = :nimi, kuvaus = :kuvaus, kaupanalku = :kaupanalku, kaupanloppu = :kaupanloppu, minimihinta = :minimihinta, meklari = :meklari WHERE id = :id');
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'kaupanalku' => $this->kaupanAlku, 'kaupanloppu' => $this->kaupanLoppu, 'minimihinta' => $this->minimihinta, 'meklari' => $this->meklari, 'id' => $id));
     }
     
     public static function poista($id){
