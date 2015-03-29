@@ -1,7 +1,7 @@
 ## Linkit
 * [Linkki sovellukseen](http://nuurtamo.users.cs.helsinki.fi/Tietokantasovellus/)
 * [Linkki dokumentaatioon](https://github.com/EsaNuurtamo/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
-* 
+
 ## Toiminnallisuus
 
 * Sivulla pystyy navigoimaan kirjautumissivulle, tuotesivulle ja kategoriasivulle navbarista
@@ -10,6 +10,7 @@
 * Kategorioiden lisäy ja poisto onnistuu (ei muokkausta)
 * Kategorioiden ja tuotteiden välinen monesta moneen suhde toteutettu
 * Kategoriaa klikkaamalla näkee kategorian sisältämät tuotteet
+
 
 - !Tulossa: kirjautumistoiminnallisuus ja profiilisivut
 - !Tulossa: tuotteiden hakutoiminnalisuus hakusanan, ja valittujen kategorioiden avulla
