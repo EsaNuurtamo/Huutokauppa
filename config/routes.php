@@ -9,7 +9,11 @@ $routes->get('/hiekkalaatikko', function() {
 });
 
 $routes->get('/kirjautuminen', function() {
-    HelloWorldController::kirjautuminen();
+    LoginController::kirjautumissivu();
+});
+
+$routes->post('/kirjautuminen', function() {
+    LoginController::kirjaudu();
 });
 
 $routes->post('/tuotteet', function(){
@@ -69,6 +73,8 @@ $routes->get('/kategoriat/uusi', function(){
 $routes->post('/kategoriat/:id/poista', function($id) {
     KategoriaController::poista($id);
 });
+
+
 
 
 

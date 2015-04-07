@@ -5,14 +5,16 @@ class TuoteController extends BaseController{
 //listaa kaikki tuotteet tuotteet.html sivulle
     public static function tuotteet(){
         $tuotteet = Tuote::all();
+        $user = self::get_user();
         //tähän korkeimman tarjouksen haku tietokannasta
-        View::make('suunnitelmat/tuotteet.html', array('tuotteet' => $tuotteet));
+        View::make('suunnitelmat/tuotteet.html', array('tuotteet' => $tuotteet, 'user'=>$user));
     }
     public static function tuote_esittely($id){
         $tuote = Tuote::getById($id);
         $tarjoukset = Tarjous::getByTuote($id);
         $kategoriat = Kategoria::getByTuote($id);
-        View::make('suunnitelmat/tuote_esittely.html',array('tuote' => $tuote, 'tarjoukset' => $tarjoukset, 'kategoriat' => $kategoriat));
+        $user = self::get_user();
+        View::make('suunnitelmat/tuote_esittely.html',array('tuote' => $tuote, 'tarjoukset' => $tarjoukset, 'kategoriat' => $kategoriat, 'user'=>$user));
     }
     public static function tuote_muokkaus($id){
         $tuote = Tuote::getById($id);
@@ -52,15 +54,7 @@ class TuoteController extends BaseController{
     //luo uuden tuotteen ja ohjaa käyttäjän sen sivuille
     public static function luo_uusi(){
         $params = $_POST;
-        /*$v = new Valitron\Validator($_POST);
-        $v->rule('required', array('nimi','lisaysaika','kaupanAlku','kaupanLoppu'));
-        if($v->validate()) {
-            echo "Tuote lisätty!";
-        } else {
-            // Errors
-            print_r($v->errors());
-            return;
-        }*/
+        
         
         $time=time();
         $tuote = new Tuote(array(
@@ -72,7 +66,16 @@ class TuoteController extends BaseController{
             'minimihinta' => $params['minimihinta'],
             'meklari' => $params['meklari']
           ));
-        $tuote->tallenna();
+        
+        //parametrien validointi
+        if($tuote->validate($params)){
+            $tuote->tallenna();
+        }else{
+            //Kint::dump($tuote->errors());
+            Redirect::to('/tuotteet/uusi', array('errors' => $tuote->errors()));
+            return;
+        }
+        
         
         //tehdään liitostauluun rivit
         if(array_key_exists('kategoriat', $params)){

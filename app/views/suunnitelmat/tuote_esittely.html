@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>{{tuote.nimi}}</h1>
+<div>{{viesti}}</div>
 
 
-<!-- Poisto ja muokkaus painikkeet -->
-<p>
+<!-- Poisto ja muokkaus painikkeet jos admin -->
+{% if user.admin %}
     <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista" class="form-inline">
         <button type="submit" class="btn btn-danger">Poista</button> 
         <a href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
-    </form>
-    
-</p>
+    </form></p>
+{% endif %}
 
 <!--Kuva tuottesta-->
 <div>

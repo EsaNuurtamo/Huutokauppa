@@ -4,13 +4,31 @@ class Tuote extends BaseModel{
     public $id, $nimi, $kuvaus, $lisaysaika, $kaupanAlku, $kaupanLoppu, $minimihinta, $meklari;
     
     public function __construct($attributes){
+        
+        
         parent::__construct($attributes);
+        
+        $this->validations = array(
+            'required' => array(
+                array('nimi'),array('kaupanAlku'),array('kaupanLoppu')
+            ),
+            'date' => array(
+                array('lisaysaika'),array('kaupanAlku'),array('kaupanLoppu')
+            ),
+            
+            'lengthMax' => array(
+                array('kuvaus',500)
+            )
+        );
+        
     }
+    
+    //public function initValidationRules
     
     
     //hakee kaikki tuotteet tietokannasta
     public static function all(){
-    
+        
         $query = DB::connection()->prepare('SELECT * FROM Tuote ORDER BY nimi');
         $query->execute();
         $rows = $query->fetchAll();
@@ -84,8 +102,6 @@ class Tuote extends BaseModel{
     public static function poista($id){
         $query = DB::connection()->prepare('DELETE FROM Tuote WHERE id = :id');
         $query->execute(array('id' => $id));
-        
-        
     }
     
     public static function luoRivista($row){

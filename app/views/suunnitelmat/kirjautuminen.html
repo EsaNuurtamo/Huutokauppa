@@ -3,22 +3,23 @@
   <h1>Kirjaudu sisään</h1>
 
   <!-- Kaikki lomakkeen elementit form-tagin sisään -->
-  <form>
+  <form form method="post" action="{{base_path}}/kirjautuminen">
     <!-- Tekstikenttä käyttäjätunnukselle -->
     <div class="form-group">
       <label>Käyttäjätunnus</label>
-      <input class="form-control" type="text">
+      <input name="tunnus" class="form-control" type="text">
     </div>
 
     <!-- Salasanakenttä salasanalle -->
     <div class="form-group">
       <label>Salasana</label>
-      <input class="form-control" type="password">
+      <input name="salasana" class="form-control" type="password">
     </div>
     <div class="">
         
     </div>
     <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+    <div>{{error}}</div>
     
   </form>
   <div>

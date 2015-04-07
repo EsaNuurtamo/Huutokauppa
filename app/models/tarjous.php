@@ -21,6 +21,7 @@ class Tarjous extends BaseModel{
         return $tarjoukset;
     }
     
+    
     //tallenna tietokantaan
     public function tallenna(){
         $query = DB::connection()->prepare('INSERT INTO Tarjous (maara, aika, tuote, asiakas) VALUES (:maara, NOW(), :tuote, :asiakas) RETURNING id');

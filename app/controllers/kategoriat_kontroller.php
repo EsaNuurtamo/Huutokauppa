@@ -2,7 +2,8 @@
 class KategoriaController extends BaseController{
     public static function kategoriat(){
         $kategoriat=Kategoria::all();
-        View::make('suunnitelmat/kategoriat.html', array('kategoriat' => $kategoriat));
+        $user = self::get_user();
+        View::make('suunnitelmat/kategoriat.html', array('kategoriat' => $kategoriat, 'user'=>$user));
     }
     
     public static function luo_uusi(){
