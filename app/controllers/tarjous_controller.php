@@ -5,6 +5,8 @@ class TarjousController extends BaseController{
     
     public static function teeTarjous($id){
         $params = $_POST;
+        $korkein=Tarjous::getTuotteenKorkein($id);
+        
         
         $time=time();
         $tarjous = new Tarjous(array(
@@ -13,11 +15,19 @@ class TarjousController extends BaseController{
             'tuote' => $id,
             'asiakas' => 'Olli'
         ));
-        Kint::dump($params);
-        $tarjous ->tallenna();
+        
+        if($korkein<$tarjous->maara){
+            $tarjous ->tallenna();
+            Redirect::to('/tuotteet/' . $id, array('viesti' => 'Uusi tarjous tehty!'));
+        }else{
+            
+            Redirect::to('/tuotteet/' . $id, array('errors'=>'Liian pieni tarjous'));
+        }
+            
         
         
-        Redirect::to('/tuotteet/' . $id, array('viesti' => 'Uusi tarjous tehty!'));
+        
+        
     }
 }
 

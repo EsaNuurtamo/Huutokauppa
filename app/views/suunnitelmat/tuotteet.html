@@ -1,46 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Tuotelista</h1>
+{% import "suunnitelmat/forms.html" as forms %}
 
-  <!-- Tuotteiden lisäys adminille -->
-  {% if user.admin %}
-    <p>
-      <a href="{{base_path}}/tuotteet/uusi" class="btn btn-success">Lisää tuote</a>
-    </p>
-  {% endif %}
-  
-  <!-- Luodaan taulukko tuotteille -->
-  <table class="table table-striped table-bordered">
-    <thead>
+<h1>Tuotelista</h1>
+{{forms.viesti(viesti)}}
+
+
+
+<!-- Tuotteiden lisäys adminille -->
+{% if user.admin %}
+  <p>
+    <a href="{{base_path}}/tuotteet/uusi" class="btn btn-success">Lisää tuote</a>
+  </p>
+{% endif %}
+
+<!-- Luodaan taulukko tuotteille -->
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Nimi</th>
+      <th>Kaupan alkamispäivä</th>
+      <th>Kaupan sulkemispäivä</th>
+      <th>Minimihinta</th>
+      <th>Korkein tarjous</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- Tuoterivin tiedot -->
+    {% for tuote in tuotteet %}
       <tr>
-        <th>Nimi</th>
-        <th>Kaupan alkamispäivä</th>
-        <th>Kaupan sulkemispäivä</th>
-        <th>Minimihinta</th>
-        <th>Korkein tarjous</th>
-        
-      </tr>
-    </thead>
-
-    <tbody>
-      <!-- Tuoterivin tiedot -->
-      {% for tuote in tuotteet %}
-        <tr>
-            <td><a href="{{base_path}}/tuotteet/{{tuote.id}}"> {{tuote.nimi}}</a></td>
-            <td> {{tuote.kaupanAlku}}</td>
-            <td> {{tuote.kaupanLoppu}}</td>
-            <td> {{tuote.minimihinta}}</td>
-            <td>0.0 €</td>
+          <td><a href="{{base_path}}/tuotteet/{{tuote.id}}"> {{tuote.nimi}}</a></td>
+          <td> {{tuote.kaupanAlku}}</td>
+          <td> {{tuote.kaupanLoppu}}</td>
+          <td> {{tuote.minimihinta}}</td>
+          <td>0.0 €</td>
+          <td>
             {% if user.admin %}
-              <th><a class="btn btn-default btn-sm" href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa">Muokkaa</a></th>
-              <td>
-              <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista">
-                <button type="submit" class="btn btn-danger">Poista</button>  
-              </form>
-              </td>
+            <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista" class="form-inline">
+
+                <a href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
+                <button type="submit" class="btn btn-danger">Poista</button> 
+
+            </form>
             {% endif %}
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+          </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 {% endblock %}

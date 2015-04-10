@@ -21,6 +21,18 @@ class Tarjous extends BaseModel{
         return $tarjoukset;
     }
     
+    public static function getTuotteenKorkein($id){
+        $query = DB::connection()->prepare('SELECT max(maara) FROM Tarjous WHERE tuote = :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+        
+        if($row){
+            return $row['max'];
+        }
+        return null;
+        
+    }
+    
     
     //tallenna tietokantaan
     public function tallenna(){

@@ -3,20 +3,20 @@
 
 
   <h1>Luo uusi tuote</h1>
+  {% if errors %}
+    <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Tuotteen luonti ei onnistunut!</strong>
+    </div>
+  {% endif %}
   
-  <ul>
-    {% for error in errors %}
-        <li>{{error}}</li>
-    {% endfor %}
-    
-  </ul>
 
   <!-- Formi johon laitetaan tuotteen tiedot-->
   <form method="post" action="{{base_path}}/tuotteet">
     
     <div class="form-group">
       <label>Nimi</label>
-      <input name="nimi" class="form-control" type="text">
+      <input name="nimi" class="form-control" type="text" value="{{params.nimi}}">
       <ul>
         {% for error in errors.nimi %}
           <li>"{{error}}"</li>
@@ -24,38 +24,28 @@
       </ul> 
     </div>
     
-        
     <div class="form-group">
         <label>Kaupan aloitusaika</label>
-        <input name="kaupanAlku" type='text' class="form-control" />
+        <input name="kaupanAlku" type='text' class="form-control" value="{{params.kaupanAlku}}"/>
         <ul>
           {% for error in errors.kaupanAlku %}
             <li>"{{error}}"</li>
           {% endfor %}
         </ul>  
-        
     </div>
       
-    
-    
     <div class="form-group">
       <label>Kaupan lopetusaika</label>
-      <input name="kaupanLoppu" class="form-control" type="text">
-      <ul>
-        {% for error in errors.kaupanLoppu %}
-          <li>"{{error}}"</li>
-        {% endfor %}
-      </ul> 
+      <input name="kaupanLoppu" class="form-control" type="text" value="{{params.kaupanLoppu}}">
+      <ul>{% for error in errors.kaupanLoppu %}<li>"{{error}}"</li>{% endfor %}</ul> 
     </div>
+      
     <div class="form-group">
       <label>Kuvaus</label>
-      <textarea name="kuvaus" class="form-control"></textarea>
-      <ul>
-        {% for error in errors.kuvaus %}
-          <li>"{{error}}"</li>
-        {% endfor %}
-      </ul> 
+      <textarea name="kuvaus" class="form-control">{{params.kuvaus}}</textarea>
+      <ul>{% for error in errors.kuvaus %}<li>"{{error}}"</li>{% endfor %}</ul> 
     </div>
+      
     <!--Tässä voi valita tuotteen kategoriat-->
     <div class="form-group">
       <label>Kategoriat</label>
@@ -64,41 +54,28 @@
             <option value="{{kategoria.id}}">{{kategoria.nimi}}</option>
           {% endfor %}
       </select>
-      
     </div> 
       
     <div class="form-group">
       <label>Minimihinta</label>
-      <input name="minimihinta" class="form-control">
-      <ul>
-        {% for error in errors.minimihinta %}
-          <li>"{{error}}"</li>
-        {% endfor %}
-      </ul>
+      <input name="minimihinta" class="form-control" value="{{params.minimihinta}}">
+      <ul>{% for error in errors.minimihinta %}<li>"{{error}}"</li>{% endfor %}</ul>
     </div>
       
-    <!--Dropdown-valikko josta näkee kaikki meklarit-->  
-    <!--<div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Tutorials
-        <span class="caret"></span></button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
-          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
-        </ul>
-    </div>-->
     <div class="form-group">
-      <label>Meklari</label>
-      <input name="meklari" class="form-control">
-      {% for error in errors.minimihinta %}
-        <li>"{{error}}"</li>
-      {% endfor %}
-    </div>  
+      <label>Meklarit</label>
+      <select class="form-control" name="meklari">
+        {% for meklari in meklarit %}
+          <option value="{{meklari.tunnus}}">{{meklari.nimi}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
     <div class="form-group">
       <label>Lisää kuva</label>
       <input name="kuva" class="form-control" type="file">
     </div>
+    
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>

@@ -8,12 +8,16 @@ $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
 
+$routes->get('/poistu', function() {
+    KirjautumisController::kirjaudu_ulos();
+});
+
 $routes->get('/kirjautuminen', function() {
-    LoginController::kirjautumissivu();
+    KirjautumisController::kirjautumissivu();
 });
 
 $routes->post('/kirjautuminen', function() {
-    LoginController::kirjaudu();
+    KirjautumisController::kirjaudu();
 });
 
 $routes->post('/tuotteet', function(){

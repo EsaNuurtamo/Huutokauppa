@@ -13,89 +13,75 @@ class TuoteController extends BaseController{
         $tuote = Tuote::getById($id);
         $tarjoukset = Tarjous::getByTuote($id);
         $kategoriat = Kategoria::getByTuote($id);
+        $meklari = Meklari::findByTunnus($tuote->meklari);
         $user = self::get_user();
-        View::make('suunnitelmat/tuote_esittely.html',array('tuote' => $tuote, 'tarjoukset' => $tarjoukset, 'kategoriat' => $kategoriat, 'user'=>$user));
+        View::make('suunnitelmat/tuote_esittely.html',array('tuote' => $tuote, 'tarjoukset' => $tarjoukset, 'kategoriat' => $kategoriat, 'user'=>$user, 'meklari'=>$meklari));
     }
     public static function tuote_muokkaus($id){
         $tuote = Tuote::getById($id);
         $kategoriat = Kategoria::all();
-        View::make('suunnitelmat/tuote_muokkaus.html',array('tuote' => $tuote, 'kategoriat' => $kategoriat));
+        $meklarit = Meklari::all();
+        $tuotteenKategoriat= Kategoria::getByTuote($id);
+        
+        foreach($kategoriat as $kategoria){
+            if(in_array($kategoria, $tuotteenKategoriat)){
+                $kategoria->onTuotteen = true;
+            }
+        }
+        
+        View::make('suunnitelmat/tuote_muokkaus.html',array('tuote' => $tuote, 'kategoriat' => $kategoriat,'meklarit'=>$meklarit));
     }
     
     public static function tee_muokkaus($id){
         $params = $_POST;
-        $time=time();
-        $tuote = new Tuote(array(
-            'nimi' => $params['nimi'],
-            'kuvaus' => $params['kuvaus'],
-            'lisaysaika' => $time,
-            'kaupanAlku' => $params['kaupanAlku'],
-            'kaupanLoppu' => $params['kaupanLoppu'],
-            'minimihinta' => $params['minimihinta'],
-            'meklari' => $params['meklari']
-        ));
-        $tuote->muokkaa($id);
+        $kategoriat = Kategoria::all();
+        $tuote = Tuote::luoParametreista($params);
+        $meklarit = Meklari::all();
         
-        //tehdään liitostauluun rivit
-        /*if(array_key_exists('kategoriat', $params)){
-            $kategoriat = $params['kategoriat'];
-            foreach ($kategoriat as $kategoria){
-                $tuoteKategoria=new TuoteKategoria(array(
-                    'kategoria' => $kategoria,
-                    'tuote' => ($tuote->id)
-                ));
-                $tuoteKategoria->tallenna();
+        //jos validi tallenna ja hoida liitokset kuntoon
+        //jos virheitä renderöi uudelleen virheviestien kanssa
+        if($tuote->validate($params)){
+            TuoteKategoria::deleteByTuote($id);
+            $tuote->muokkaa($id);
+            if(array_key_exists('kategoriat', $params)){
+                TuoteKategoria::luoLiitokset($id, $params['kategoriat']);
             }
-        }*/
+            Redirect::to('/tuotteet/' . $tuote->id, array('viesti' => 'Muokkaus onnistui!'));
+        }else{
+            
+            View::make('suunnitelmat/tuote_muokkaus.html',array('tuote' => $tuote,'errors' => $tuote->errors(), 'kategoriat' => $kategoriat,'meklarit'=>$meklarit));
+        }
         
-        Redirect::to('/tuotteet/' . $id, array('viesti' => 'Muokkaus onnistui!'));
+        
+        
+        //poista kaikki kategoriat liitostaulusta
+        
+        
+        
+        //Redirect::to('/tuotteet/' . $id, array('viesti' => 'Muokkaus onnistui!'));
     }
     
     //luo uuden tuotteen ja ohjaa käyttäjän sen sivuille
     public static function luo_uusi(){
         $params = $_POST;
-        
-        
-        $time=time();
-        $tuote = new Tuote(array(
-            'nimi' => $params['nimi'],
-            'kuvaus' => $params['kuvaus'],
-            'lisaysaika' => $time,
-            'kaupanAlku' => $params['kaupanAlku'],
-            'kaupanLoppu' => $params['kaupanLoppu'],
-            'minimihinta' => $params['minimihinta'],
-            'meklari' => $params['meklari']
-          ));
+        $kategoriat = Kategoria::all();
+        $meklarit = Meklari::all();
+        $tuote = Tuote::luoParametreista($params);
         
         //parametrien validointi
         if($tuote->validate($params)){
-            $tuote->tallenna();
+            $tuote->tallenna($params['kategoriat']);
+            TuoteKategoria::luoLiitokset($tuote->id, $params['kategoriat']);
+            Redirect::to('/tuotteet/' . $tuote->id, array('viesti' => 'Uusi tuote on lisätty!'));
         }else{
-            //Kint::dump($tuote->errors());
-            Redirect::to('/tuotteet/uusi', array('errors' => $tuote->errors()));
-            return;
+            View::make('suunnitelmat/tuote_uusi.html', array('errors' => $tuote->errors(),'kategoriat'=>$kategoriat,'meklarit'=>$meklarit, 'params' => $params));
         }
-        
-        
-        //tehdään liitostauluun rivit
-        if(array_key_exists('kategoriat', $params)){
-            
-            $kategoriat = $params['kategoriat'];
-            foreach ($kategoriat as $kategoria){
-                $tuoteKategoria=new TuoteKategoria(array(
-                    'kategoria' => $kategoria,
-                    'tuote' => ($tuote->id)
-                ));
-                $tuoteKategoria->tallenna();
-            }
-        }
-        
-        Redirect::to('/tuotteet/' . $tuote->id, array('viesti' => 'Uusi tuote on lisätty!'));
     }
     
     public static function tuote_uusi(){
         $kategoriat = Kategoria::all();
-        View::make('suunnitelmat/tuote_uusi.html', array('kategoriat'=>$kategoriat));
+        $meklarit = Meklari::all();
+        View::make('suunnitelmat/tuote_uusi.html', array('kategoriat'=>$kategoriat,'meklarit'=>$meklarit));
     }
     
     public static function poista($id){

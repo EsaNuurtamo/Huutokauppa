@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Kategoriat</h1>
-
+  {% if viesti %}
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{viesti}}</strong>
+    </div>
+  {% endif %}
+  
   <!-- Kategorioiden lisäys adminille -->
   {% if user.admin %}
   <p><a href="{{base_path}}/kategoriat/uusi" class="btn btn-success">Lisää kategoria</a></p>

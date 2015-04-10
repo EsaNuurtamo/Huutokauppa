@@ -1,6 +1,6 @@
 <?php
 
-class LoginController extends BaseController{
+class KirjautumisController extends BaseController{
     public static function kirjautumissivu(){
         View::make('suunnitelmat/kirjautuminen.html');
     }
@@ -26,7 +26,7 @@ class LoginController extends BaseController{
     }
     public static function kirjaudu_ulos(){
         $_SESSION['user'] = null;
-        Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
+        Redirect::to('/kirjautuminen', array('viesti' => 'Olet kirjautunut ulos!'));
     }
 }
 

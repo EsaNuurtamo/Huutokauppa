@@ -43,7 +43,12 @@
             <li><a href="{{base_path}}/kategoriat">Kategoriat</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{base_path}}/kirjautuminen">Kirjaudu sisään</a></li>
+            {% if user %}
+              <li><a href="{{base_path}}/poistu">Kirjaudu ulos</a></li>
+            {% else %}
+              <li><a href="{{base_path}}/kirjautuminen">Kirjaudu sisään</a></li>
+            {% endif %}
+            
           </ul>
         </div>
       </div>

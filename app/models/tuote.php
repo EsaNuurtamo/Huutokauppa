@@ -16,8 +16,16 @@ class Tuote extends BaseModel{
                 array('lisaysaika'),array('kaupanAlku'),array('kaupanLoppu')
             ),
             
+            'dateAfter' => array(
+                array('kaupanAlku', 'lisaysaika'),array('kaupanLoppu, kaupanAlku')
+            ),
+            
             'lengthMax' => array(
                 array('kuvaus',500)
+            ),
+            
+            'numeric' => array(
+                array('minimihinta')
             )
         );
         
@@ -82,22 +90,19 @@ class Tuote extends BaseModel{
     
     //tallentaa olion tietokantaan
     public function tallenna(){
-        
         $query = DB::connection()->prepare('INSERT INTO Tuote (nimi, kuvaus, lisaysaika, kaupanAlku, kaupanLoppu, minimihinta, meklari) VALUES (:nimi, :kuvaus, NOW(), :kaupanalku, :kaupanloppu, :minimihinta, :meklari) RETURNING id');
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'kaupanalku' => $this->kaupanAlku, 'kaupanloppu' => $this->kaupanLoppu, 'minimihinta' => $this->minimihinta, 'meklari' => $this->meklari));
         $row = $query->fetch();
-        
-        
-        
         $this->id = $row['id'];
-        
     }
     
     public function muokkaa($id){
-        
         $query = DB::connection()->prepare('UPDATE Tuote SET nimi = :nimi, kuvaus = :kuvaus, kaupanalku = :kaupanalku, kaupanloppu = :kaupanloppu, minimihinta = :minimihinta, meklari = :meklari WHERE id = :id');
         $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'kaupanalku' => $this->kaupanAlku, 'kaupanloppu' => $this->kaupanLoppu, 'minimihinta' => $this->minimihinta, 'meklari' => $this->meklari, 'id' => $id));
+        $this->id = $id;
     }
+    
+    
     
     public static function poista($id){
         $query = DB::connection()->prepare('DELETE FROM Tuote WHERE id = :id');
@@ -121,6 +126,20 @@ class Tuote extends BaseModel{
         }
         return null;
         
+    }
+    
+    public static function luoParametreista($params){
+        if($params==null)return null;
+        $tuote = new Tuote(array(
+            'nimi' => $params['nimi'],
+            'kuvaus' => $params['kuvaus'],
+            'lisaysaika' => time(),
+            'kaupanAlku' => $params['kaupanAlku'],
+            'kaupanLoppu' => $params['kaupanLoppu'],
+            'minimihinta' => $params['minimihinta'],
+            'meklari' => $params['meklari']
+        ));
+        return $tuote;
     }
             
 }

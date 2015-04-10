@@ -16,16 +16,31 @@ class TuoteKategoria extends BaseModel{
         $this->id = $row['id'];
     }
     
-    /*public static function poistaTuoteIdlla($id){
-        $query = DB::connection()->prepare('DELETE FROM Tuotekategoria WHERE tuote = :id');
-        $query->execute(array('id' => $id));
-        
+    public static function deleteByTuote($tuote){
+        $query = DB::connection()->prepare('DELETE FROM Tuotekategoria WHERE tuote = :tuote');
+        $query->execute(array('tuote' => $tuote));    
     }
+    
+    public static function  luoLiitokset($id, $kategoriat){
+        
+        if($kategoriat==null){return;}
+        
+        //tee liitostaulut
+        foreach ($kategoriat as $kategoria){
+            $tuoteKategoria=new TuoteKategoria(array(
+                'kategoria' => $kategoria,
+                'tuote' => ($id)
+            ));
+            $tuoteKategoria->tallenna();
+        }
+    }
+    
+    
     
     public static function poistaKategoriaIdlla($id){
         $query = DB::connection()->prepare('DELETE FROM Tuotekategoria WHERE kategoria = :id');
         $query->execute(array('id' => $id));
-    }*/
+    }
     
     
 }

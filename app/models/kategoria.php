@@ -3,6 +3,16 @@ class Kategoria extends BaseModel{
     public $id,$nimi,$kuvaus;
     public function __construct($attributes) {
         parent::__construct($attributes);
+        
+        $this->validations = array(
+            'required' => array(
+                array('nimi')
+            ),
+            
+            'lengthMax' => array(
+                array('kuvaus',500)
+            )
+        );
     }
     
     

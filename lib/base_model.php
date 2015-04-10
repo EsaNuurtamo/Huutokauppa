@@ -19,7 +19,6 @@
     
     public function validate($params){
         $validator=new Valitron\Validator($params);
-        Kint::dump($this->validations);
         $validator->rules($this->validations);
         $this->validator=$validator;
         return $validator->validate();

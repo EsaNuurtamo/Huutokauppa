@@ -8,15 +8,22 @@ class KategoriaController extends BaseController{
     
     public static function luo_uusi(){
         $params = $_POST;
-        
         $kategoria = new Kategoria(array(
             'nimi' => $params['nimi'],
             'kuvaus' => $params['kuvaus']
         ));
         
-        $kategoria->tallenna();
+        if($kategoria->validate($params)){
+            $kategoria->tallenna();
+            Redirect::to('/kategoriat', array('viesti' => 'Uusi kategoria on lisätty!'));
+        }else{
+            //Kint::dump($tuote->errors());
+            View::make('suunnitelmat/kategoria_uusi.html', array('errors' => $kategoria->errors(), 'params'=>$params));
+            
+        }
+        
 
-        Redirect::to('/kategoriat', array('viesti' => 'Uusi kategoria on lisätty!'));
+        
     }
     
     public static function kategoria_uusi(){
