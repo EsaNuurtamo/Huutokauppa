@@ -7,8 +7,9 @@
         <strong>{{viesti}}</strong>
     </div>
   {% endif %}
+  
   <!-- Kaikki lomakkeen elementit form-tagin sisään -->
-  <form form method="post" action="{{base_path}}/kirjautuminen">
+  <form method="post" action="{{base_path}}/kirjautuminen">
     <!-- Tekstikenttä käyttäjätunnukselle -->
     <div class="form-group">
       <label>Käyttäjätunnus</label>
@@ -31,7 +32,7 @@
       <p>
           Etkö ole vielä rekisteröitynyt?
       </p>
-      <a class="btn btn-default" href="/rekisterointi" role="button">Rekisteröidy!</a>
+      <a class="btn btn-default" href="{{base_path}}/rekisteroi" role="button">Rekisteröidy!</a>
   </div>
   
 {% endblock %}

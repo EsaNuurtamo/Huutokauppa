@@ -64,6 +64,20 @@ class Tuote extends BaseModel{
         return $tuotteet;
     }
     
+    public static function getByMeklari($tunnus){
+    
+        $query = DB::connection()->prepare('SELECT * FROM Tuote WHERE meklari = :tunnus');
+        $query->execute(array('tunnus' => $tunnus));
+        $rows = $query->fetchAll();
+        
+        $tuotteet = array();
+        foreach($rows as $row){
+          $tuotteet[] = Tuote::luoRivista($row);
+        }
+
+        return $tuotteet;
+    }
+    
     
     
     //hakee tietyn ID:n omaavan tuotteen

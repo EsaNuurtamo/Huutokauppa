@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+  <h1>Luo uusi käyttäjä</h1>
+  {% if errors %}
+    <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Tuotteen luonti ei onnistunut!</strong>
+    </div>
+  {% endif %}
+  
+
+  <!-- Formi johon laitetaan tuotteen tiedot-->
+  <form method="post" action="{{base_path}}/tuotteet">
+    
+    <div class="form-group">
+      <label>Käyttäjätunnus</label>
+      <input name="tunnus" class="form-control" type="text" value="{{params.tunnus}}">
+      <ul>
+        {% for error in errors.tunnus %}
+          <li>"{{error}}"</li>
+        {% endfor %}
+      </ul> 
+    </div>
+    
+    <div class="form-group">
+        <label>Kaupan aloitusaika</label>
+        <input name="kaupanAlku" type='text' class="form-control" value="{{params.kaupanAlku}}"/>
+        <ul>
+          {% for error in errors.kaupanAlku %}
+            <li>"{{error}}"</li>
+          {% endfor %}
+        </ul>  
+    </div>
+      
+    <div class="form-group">
+      <label>Kaupan lopetusaika</label>
+      <input name="kaupanLoppu" class="form-control" type="text" value="{{params.kaupanLoppu}}">
+      <ul>{% for error in errors.kaupanLoppu %}<li>"{{error}}"</li>{% endfor %}</ul> 
+    </div>
+      
+    <div class="form-group">
+      <label>Kuvaus</label>
+      <textarea name="kuvaus" class="form-control">{{params.kuvaus}}</textarea>
+      <ul>{% for error in errors.kuvaus %}<li>"{{error}}"</li>{% endfor %}</ul> 
+    </div>
+      
+    <!--Tässä voi valita tuotteen kategoriat-->
+    <div class="form-group">
+      <label>Kategoriat</label>
+      <select class="form-control" name="kategoriat[]" multiple="">
+          {% for kategoria in kategoriat %}
+            <option value="{{kategoria.id}}">{{kategoria.nimi}}</option>
+          {% endfor %}
+      </select>
+    </div> 
+      
+    <div class="form-group">
+      <label>Minimihinta</label>
+      <input name="minimihinta" class="form-control" value="{{params.minimihinta}}">
+      <ul>{% for error in errors.minimihinta %}<li>"{{error}}"</li>{% endfor %}</ul>
+    </div>
+      
+    <div class="form-group">
+      <label>Meklarit</label>
+      <select class="form-control" name="meklari">
+        {% for meklari in meklarit %}
+          <option value="{{meklari.tunnus}}">{{meklari.nimi}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label>Lisää kuva</label>
+      <input name="kuva" class="form-control" type="file">
+    </div>
+    
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

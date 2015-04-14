@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-{% import "suunnitelmat/forms.html" as forms %}
+{% import "makrot/forms.html" as forms %}
 
 <h1>Tuotelista</h1>
 {{forms.viesti(viesti)}}
@@ -37,11 +37,11 @@
           <td> {{tuote.minimihinta}}</td>
           <td>0.0 €</td>
           <td>
-            {% if user.admin %}
+            {% if user.onMeklari %}
             <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista" class="form-inline">
 
                 <a href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
-                <button type="submit" class="btn btn-danger">Poista</button> 
+                {% if user.admin %} <button type="submit" class="btn btn-danger">Poista</button> {% endif %}
 
             </form>
             {% endif %}

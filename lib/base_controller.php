@@ -10,6 +10,8 @@
           $asiakas = Asiakas::findByTunnus($tunnus);
           $meklari = Meklari::findByTunnus($tunnus);
           
+          
+          
           if($asiakas!=null){
               return $asiakas;
           }else if($meklari!=null){

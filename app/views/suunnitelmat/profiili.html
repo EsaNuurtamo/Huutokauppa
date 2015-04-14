@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "makrot/forms.html" as forms %}
+<h1>Käyttäjän {{user.nimi}} profiili</h1>
+
+<!--Viesti ja toimintonapit-->
+{{forms.viesti(viesti)}}
+
+<!--Muokkausnappi-->
+<form class="form-inline">
+    <a href="{{base_path}}/tuotteet/{{user.tunnus}}/muokkaa" class="btn btn-default">Muokkaa</a>
+</form>
+
+<h4>Käyttäjän tiedot</h4>
+<ul>
+    <li><strong>Nimi: </strong>{{user.nimi}}</li>
+    <li><strong>Osoite: </strong>{{user.osoite}}</li>
+    <li><strong>Puhelinnumero: </strong>{{user.numero}}</li>
+    <li><strong>Sähköposti: </strong>{{user.sposti}}</li>
+    <li><strong>Tunnus: </strong> {{user.tunnus}}</li>
+</ul>
+
+
+
+{% if user.onMeklari %}
+<h4>Hallinnoitavat tuotteet</h4>
+    <ul>
+    {% for tuote in tuotteet %}
+        <li><a href="{{base_path}}/tuotteet/{{tuote.id}}">{{tuote.nimi}}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+
+{% endblock %}

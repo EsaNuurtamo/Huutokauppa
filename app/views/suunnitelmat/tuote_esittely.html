@@ -13,11 +13,11 @@
 {% endif %}
 
 
-{% if user.admin %}
+{% if user.onMeklari %}
 <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista" class="form-inline">
 
     <a href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
-    <button type="submit" class="btn btn-danger">Poista</button> 
+    {% if user.admin %}<button type="submit" class="btn btn-danger">Poista</button> {% endif %}
 
 </form>
 {% endif %}
@@ -65,7 +65,7 @@
 </p>
 
 <!--Tarjouksen teko-->
-{% if user %}
+{% if user and user.onMeklari == false %}
 <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/tarjoa" class="form-inline">
     <div class="form-group">
         <div class="input-group">

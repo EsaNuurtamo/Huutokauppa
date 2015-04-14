@@ -4,7 +4,7 @@
     
     protected $validator;
     public $validations;
-    public $admin;
+    
     public function __construct($attributes = null){
         
         foreach($attributes as $attribute => $value){

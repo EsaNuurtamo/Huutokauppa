@@ -1,16 +1,18 @@
 <?php
 
 class Meklari extends BaseModel{
-    public $tunnus, $salasana, $nimi,$osoite,$sposti,$puhelin;
+    public $tunnus, $salasana, $nimi,$admin,$sposti,$puhelin,$onMeklari;
     public function __construct($attributes = null) {
-        $rules=array(
+        
+        parent::__construct($attributes);
+        $this->validations=array(
             'required' => array(
                 array('tunnus'),array('salasana'),array('nimi'),array('osoite'),array('sposti')
             )
         );
-        parent::__construct($attributes, $rules);
         
-        $this->admin=true;
+        $this->onMeklari=true;
+        
     }
     
     public static function all(){
@@ -52,9 +54,10 @@ class Meklari extends BaseModel{
             'salasana' => $row['salasana'],
             'nimi' => $row['nimi'],
             'sposti' => $row['sposti'],
-            'puhelin' => $row['puhelin']
+            'puhelin' => $row['puhelin'],
+            'admin' => $row['admin']
           ));
-
+          
           return $meklari;
         }
         return null;

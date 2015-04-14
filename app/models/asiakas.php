@@ -6,6 +6,7 @@ class Asiakas extends BaseModel{
         
         parent::__construct($attributes);
         
+        
         $this->validations=array(
             'required' => array(
                 array('tunnus'),array('salasana'),array('nimi'),array('osoite'),array('sposti')

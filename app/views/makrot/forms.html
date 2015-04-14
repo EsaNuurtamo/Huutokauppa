@@ -4,13 +4,10 @@
 {% macro tuotteenPoistoJaMuokkaus(tuote, user) %}
   {% if user.admin %}
   <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista" class="form-inline">
-      
       <a href="{{base_path}}/tuotteet/{{tuote.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
       <button type="submit" class="btn btn-danger">Poista</button> 
-      
   </form>
   {% endif %}
-  
 {% endmacro %}
 
 {% macro viesti(viesti) %}
