@@ -6,6 +6,7 @@
 * Sisään voi kirjautua eri oikeuksin.
 * Meklarin oikeudet. Käyttäjätunnus: Topi, Salasana: Topi123
 * Asiakkaan oikeudet. Käyttäjätunnus: Olli, Salasana: Olli123
+* Kauppakamarin oikeudet. Käyttäjätunnus: Kauppakamari, Salasana: Kauppa123
 * Sivulla pystyy navigoimaan kirjautumissivulle, tuotesivulle ja kategoriasivulle navbarista
 
 ## Aiheen esittely
