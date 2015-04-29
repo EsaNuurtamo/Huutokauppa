@@ -30,15 +30,14 @@
           <td>{{kategoria.kuvaus}}</td>
 
           <!-- Poisto vain adminille -->
-          {% if user.admin %}
-            
-            <!--<th><a class="btn btn-default btn-sm" href="{{base_path}}/kategoriat/{{kategoria.id}}/muokkaa">Muokkaa</a></th>-->
-            <td>
-              <form method="post" action="{{base_path}}/kategoriat/{{kategoria.id}}/poista">
-                <button type="submit" class="btn btn-danger">Poista</button>  
-              </form>
-            </td>
-          {% endif %}
+          <td>
+            {% if user.admin %}
+            <form method="post" action="{{base_path}}/kategoriat/{{kategoria.id}}/poista" class="form-inline">
+                <a href="{{base_path}}/kategoriat/{{kategoria.id}}/muokkaa" class="btn btn-default">Muokkaa</a>
+                <button type="submit" class="btn btn-danger">Poista</button>
+            </form>
+            {% endif %}
+          </td>
         </tr>
       {% endfor %}
     </tbody>

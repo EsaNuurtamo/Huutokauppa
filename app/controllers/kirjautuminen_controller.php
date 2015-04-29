@@ -28,5 +28,33 @@ class KirjautumisController extends BaseController{
         $_SESSION['user'] = null;
         Redirect::to('/kirjautuminen', array('viesti' => 'Olet kirjautunut ulos!'));
     }
+    
+    public static function rekisterointi(){
+        View::make('suunnitelmat/rekisterointi.html');
+        
+    }
+    
+    public static function rekisteroi(){
+        
+        $params = $_POST;
+        $asiakas = new Asiakas(array(
+            'tunnus' => $params['tunnus'],
+            'salasana' => $params['salasana'],
+            'nimi' => $params['nimi'],
+            'osoite' => $params['osoite'],
+            'sposti' => $params['sposti'],
+            'puhelin' => $params['puhelin'],
+            'vahvistus' => $params['vahvistus']
+        ));
+        
+        //parametrien validointi
+        if($asiakas->validate($params)){
+            $asiakas->tallenna($params);
+            Redirect::to('/kirjautuminen', array('viesti' => 'Profiili luotu! Kirjaudu sisään'));
+        }else{
+            View::make('suunnitelmat/rekisterointi.html', array('errors' => $asiakas->errors(),'params' => $params));
+        }
+        
+    }
 }
 

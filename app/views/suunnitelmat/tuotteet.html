@@ -2,7 +2,12 @@
 {% block content %}
 {% import "makrot/forms.html" as forms %}
 
-<h1>Tuotelista</h1>
+{% if kategoria %}
+  <h1>Kategorian <strong>{{kategoria.nimi}}</strong> tuotteet</h1>
+  <div><i>"{{kategoria.kuvaus}}"</i></div>
+{% else %}
+  <h1>Tuotelista</h1>
+{% endif %}
 {{forms.viesti(viesti)}}
 
 
@@ -22,8 +27,6 @@
       <th>Kaupan alkamispäivä</th>
       <th>Kaupan sulkemispäivä</th>
       <th>Minimihinta</th>
-      <th>Korkein tarjous</th>
-
     </tr>
   </thead>
 
@@ -35,7 +38,6 @@
           <td> {{tuote.kaupanAlku}}</td>
           <td> {{tuote.kaupanLoppu}}</td>
           <td> {{tuote.minimihinta}}</td>
-          <td>0.0 €</td>
           <td>
             {% if user.onMeklari %}
             <form method="post" action="{{base_path}}/tuotteet/{{tuote.id}}/poista" class="form-inline">

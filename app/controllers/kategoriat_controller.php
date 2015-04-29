@@ -30,6 +30,35 @@ class KategoriaController extends BaseController{
         View::make('suunnitelmat/kategoria_uusi.html');
     }
     
+    public static function kategoria_muokkaus($id){
+        
+        //jos ei kirjautunut niin palaa listaussivulle
+        $user = self::get_user();
+        if(!$user){
+            Redirect::to('/kategoriat');
+        }
+        $kategoria = Kategoria::getById($id);
+        
+        View::make('suunnitelmat/kategoria_muokkaus.html',array('kategoria' => $kategoria));
+    }
+    
+    public static function tee_muokkaus($id){
+        $params = $_POST;
+        $kategoria = new Kategoria(array(
+            'nimi' => $params['nimi'],
+            'kuvaus' => $params['kuvaus']
+        ));
+        
+        if($kategoria->validate($params)){
+            $kategoria->muokkaa($id);
+            Redirect::to('/kategoriat', array('viesti' => 'Muokkaus onnistui!'));
+        }else{
+            
+            View::make('suunnitelmat/kategoria_uusi.html', array('errors' => $kategoria->errors()));
+            
+        }
+    }
+    
     public static function poista($id){
         //poistetaan aluksi liitostaulun entryt
         //TuoteKategoria::poistaKategoriaIdlla($id);

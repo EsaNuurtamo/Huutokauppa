@@ -22,6 +22,15 @@ $routes->post('/kirjautuminen', function() {
     KirjautumisController::kirjaudu();
 });
 
+$routes->get('/rekisterointi', function() {
+    KirjautumisController::rekisterointi();
+});
+
+$routes->post('/rekisterointi', function() {
+    echo "ee";
+    KirjautumisController::rekisteroi();
+});
+
 $routes->get('/profiili', function() {
     ProfiiliController::profiili();
 });
@@ -37,6 +46,8 @@ $routes->get('/tuotteet', function() {
 $routes->get('/tuotteet/kategoria/:id', function($id) {
     TuoteController::kategorianTuotteet($id);
 });
+
+
 
 
 
@@ -80,9 +91,20 @@ $routes->get('/kategoriat', function() {
 $routes->get('/kategoriat/uusi', function(){
     KategoriaController::kategoria_uusi();
 });
+
+$routes->get('/kategoriat/:id/muokkaa', function($id) {
+    echo "routes";
+    KategoriaController::kategoria_muokkaus($id);
+});
+
+$routes->post('/kategoriat/:id/muokkaa', function($id) {
+    KategoriaController::tee_muokkaus($id);
+});
 $routes->post('/kategoriat/:id/poista', function($id) {
     KategoriaController::poista($id);
 });
+
+
 
 
 

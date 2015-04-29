@@ -22,7 +22,7 @@
 
 
 
-{% if user.onMeklari %}
+{% if user.onMeklari and user.admin==false %}
 <h4>Hallinnoitavat tuotteet</h4>
     <ul>
     {% for tuote in tuotteet %}

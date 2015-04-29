@@ -43,6 +43,12 @@ class Kategoria extends BaseModel{
         $this->id = $row['id'];
     }
     
+    public function muokkaa($id){
+        $query = DB::connection()->prepare('UPDATE Kategoria SET nimi = :nimi, kuvaus = :kuvaus WHERE id = :id');
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'id' => $id));
+        $this->id = $id;
+    }
+    
     public static function luoRivista($row){
         if($row){
             return new Kategoria(array(
@@ -69,6 +75,16 @@ class Kategoria extends BaseModel{
 
         return $kategoriat;
         
+    }
+    
+    //hakee tietyn ID:n omaavan kategorian
+    public static function getById($id){
+        echo "ff";
+        $query = DB::connection()->prepare('SELECT * FROM Kategoria WHERE id = :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+        Kint::dump($row);
+        return Kategoria::luoRivista($row);
     }
     
     public static function poista($id){

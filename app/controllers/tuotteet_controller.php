@@ -6,6 +6,7 @@ class TuoteController extends BaseController{
     public static function tuotteet(){
         $tuotteet = Tuote::all();
         $user = self::get_user();
+        
         //tähän korkeimman tarjouksen haku tietokannasta
         View::make('suunnitelmat/tuotteet.html', array('tuotteet' => $tuotteet, 'user'=>$user));
     }
@@ -18,6 +19,14 @@ class TuoteController extends BaseController{
         View::make('suunnitelmat/tuote_esittely.html',array('tuote' => $tuote, 'tarjoukset' => $tarjoukset, 'kategoriat' => $kategoriat, 'user'=>$user, 'meklari'=>$meklari));
     }
     public static function tuote_muokkaus($id){
+        
+        //jos ei kirjautunut niin palaa esittelysivulle
+        $user = self::get_user();
+        if(!$user){
+            Redirect::to('/tuotteet/' . $id);
+        }
+        
+        
         $tuote = Tuote::getById($id);
         $kategoriat = Kategoria::all();
         $meklarit = Meklari::all();
@@ -79,6 +88,12 @@ class TuoteController extends BaseController{
     }
     
     public static function tuote_uusi(){
+        //jos ei kirjautunut niin palaa tuotesivulle
+        $user = self::get_user();
+        if(!$user){
+            Redirect::to('/tuotteet');
+        }
+        
         $kategoriat = Kategoria::all();
         $meklarit = Meklari::all();
         View::make('suunnitelmat/tuote_uusi.html', array('kategoriat'=>$kategoriat,'meklarit'=>$meklarit));
@@ -93,8 +108,9 @@ class TuoteController extends BaseController{
     
     public static function kategorianTuotteet($id){
         $tuotteet = Tuote::getByKategoria($id);
+        $kategoria = Kategoria::getById($id);
         //tähän korkeimman tarjouksen haku tietokannasta
-        View::make('suunnitelmat/tuotteet.html', array('tuotteet' => $tuotteet));
+        View::make('suunnitelmat/tuotteet.html', array('tuotteet' => $tuotteet, 'kategoria' => $kategoria));
     }
             
 }

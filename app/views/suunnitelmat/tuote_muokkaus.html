@@ -56,6 +56,7 @@
       </ul>
     </div>
     <div class="form-group">
+      <label>Kategoriat</label>
       <select class="form-control" name="kategoriat[]" multiple="">
         {% for kategoria in kategoriat %}
         <option value="{{kategoria.id}}" {% if kategoria.onTuotteen %}selected{% endif %}>{{kategoria.nimi}}</option>
@@ -75,7 +76,8 @@
       <label>Meklarit</label>
       <select class="form-control" name="meklari">
         {% for meklari in meklarit %}
-          <option value="{{meklari.tunnus}}" {% if tuote.meklari == meklari.tunnus %}selected{% endif %}>{{meklari.nimi}}</option>
+          <!--Asetetaan valituksi oikea meklari ja listataan kaikki meklarit jotka eivät ole admineja-->
+          {% if meklari.admin==false %}<option value="{{meklari.tunnus}}" {% if tuote.meklari == meklari.tunnus %}selected{% endif %}>{{meklari.nimi}}</option>{% endif %}
         {% endfor %}
       </select>
     </div> 

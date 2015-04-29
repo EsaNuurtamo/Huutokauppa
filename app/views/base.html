@@ -43,7 +43,9 @@
             <li><a href="{{base_path}}/kategoriat">Kategoriat</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            {% if user %}
             <li><a href="{{base_path}}/profiili">Profiili</a></li>  
+            {% endif %}
             {% if user %}
               <li><a href="{{base_path}}/poistu">Kirjaudu ulos</a></li>
             {% else %}
